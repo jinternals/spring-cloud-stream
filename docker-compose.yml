@@ -1,0 +1,210 @@
+version: '3'
+
+services:
+  zookeeper1:
+    image: zookeeper:latest
+    container_name: zookeeper1
+    hostname: zookeeper1
+    ports:
+      - "2181:2181"
+    environment:
+        ZOO_MY_ID: 1
+        ZOO_PORT: 2181
+        ZOO_SERVERS: server.1=zookeeper1:2888:3888 server.2=zookeeper2:2888:3888 server.3=zookeeper2:2888:3888
+    volumes:
+      - ./data/zookeeper/zookeeper1/data:/data
+      - ./data/zookeeper/zookeeper1/datalog:/datalog
+    networks:
+      kafka-network:
+        ipv4_address: 10.5.0.2
+
+  zookeeper2:
+    image: zookeeper:latest
+    container_name: zookeeper2
+    hostname: zookeeper2
+    ports:
+      - "2182:2182"
+    environment:
+        ZOO_MY_ID: 2
+        ZOO_PORT: 2182
+        ZOO_SERVERS: server.1=zookeeper1:2888:3888 server.2=zookeeper2:2888:3888 server.3=zookeeper2:2888:3888
+    volumes:
+      - ./data/zookeeper/zookeeper2/data:/data
+      - ./data/zookeeper/zookeeper2/datalog:/datalog
+    networks:
+      kafka-network:
+        ipv4_address: 10.5.0.3
+
+  zookeeper3:
+    image: zookeeper:latest
+    container_name: zookeeper3
+    hostname: zookeeper3
+    ports:
+      - "2183:2183"
+    environment:
+        ZOO_MY_ID: 3
+        ZOO_PORT: 2183
+        ZOO_SERVERS: server.1=zookeeper1:2888:3888 server.2=zookeeper2:2888:3888 server.3=zookeeper2:2888:3888
+    volumes:
+      - ./data/zookeeper/zookeeper3/data:/data
+      - ./data/zookeeper/zookeeper3/datalog:/datalog
+    networks:
+      kafka-network:
+        ipv4_address: 10.5.0.4
+
+  kafka1:
+    image: confluentinc/cp-kafka:4.1.0
+    container_name: kafka1
+    hostname: kafka1
+    ports:
+      - "9092:9092"
+    environment:
+      KAFKA_ADVERTISED_LISTENERS: "PLAINTEXT://kafka1:9092"
+      KAFKA_ZOOKEEPER_CONNECT: "zookeeper1:2181,zookeeper2:2182,zookeeper2:2183"
+      KAFKA_BROKER_ID: 1
+      KAFKA_LOG4J_LOGGERS: "kafka.controller=INFO,kafka.producer.async.DefaultEventHandler=INFO,state.change.logger=INFO"
+    volumes:
+      - ./data/kafka/kafka1/data:/var/lib/kafka/data
+    depends_on:
+      - zookeeper1
+      - zookeeper2
+      - zookeeper3
+    networks:
+      kafka-network:
+        ipv4_address: 10.5.0.5
+
+  kafka2:
+    image: confluentinc/cp-kafka:4.1.0
+    container_name: kafka2
+    hostname: kafka2
+    ports:
+      - "9093:9093"
+    environment:
+      KAFKA_ADVERTISED_LISTENERS: "PLAINTEXT://kafka2:9093"
+      KAFKA_ZOOKEEPER_CONNECT: "zookeeper1:2181,zookeeper2:2182,zookeeper2:2183"
+      KAFKA_BROKER_ID: 2
+      KAFKA_LOG4J_LOGGERS: "kafka.controller=INFO,kafka.producer.async.DefaultEventHandler=INFO,state.change.logger=INFO"
+    volumes:
+      - ./data/kafka/kafka2/data:/var/lib/kafka/data
+    depends_on:
+      - zookeeper1
+      - zookeeper2
+      - zookeeper3
+    networks:
+      kafka-network:
+        ipv4_address: 10.5.0.6
+
+  kafka3:
+    image: confluentinc/cp-kafka:4.1.0
+    container_name: kafka3
+    hostname: kafka3
+    ports:
+      - "9094:9094"
+    environment:
+      KAFKA_ADVERTISED_LISTENERS: "PLAINTEXT://kafka3:9094"
+      KAFKA_ZOOKEEPER_CONNECT: "zookeeper1:2181,zookeeper2:2182,zookeeper2:2183"
+      KAFKA_BROKER_ID: 3
+      KAFKA_LOG4J_LOGGERS: "kafka.controller=INFO,kafka.producer.async.DefaultEventHandler=INFO,state.change.logger=INFO"
+    volumes:
+      - ./data/kafka/kafka3/data:/var/lib/kafka/data
+    depends_on:
+      - zookeeper1
+      - zookeeper2
+      - zookeeper3
+    networks:
+      kafka-network:
+        ipv4_address: 10.5.0.7
+
+  kafka-rest-proxy:
+    image: confluentinc/cp-kafka-rest:4.1.0
+    container_name: kafka-rest-proxy
+    hostname: kafka-rest-proxy
+    ports:
+      - "8082:8082"
+    environment:
+      KAFKA_REST_ZOOKEEPER_CONNECT: zookeeper1:2181
+      KAFKA_REST_LISTENERS: http://0.0.0.0:8082/
+      KAFKA_REST_HOST_NAME: kafka-rest-proxy
+      KAFKA_REST_BOOTSTRAP_SERVERS: kafka1:9092
+    depends_on:
+      - zookeeper1
+      - kafka1
+    networks:
+      kafka-network:
+        ipv4_address: 10.5.0.8
+
+  kafka-topics-ui:
+    image: landoop/kafka-topics-ui:latest
+    container_name: kafka-topics-ui
+    hostname: kafka-topics-ui
+    ports:
+      - "8000:8000"
+    environment:
+      KAFKA_REST_PROXY_URL: "http://kafka-rest-proxy:8082/"
+      PROXY: "true"
+    depends_on:
+      - zookeeper1
+      - kafka1
+      - kafka-rest-proxy
+    networks:
+      kafka-network:
+        ipv4_address: 10.5.0.9
+
+#  kafka-manager:
+#    image: sheepkiller/kafka-manager:latest
+#    container_name: kafka-manager
+#    hostname: kafka-manager
+#    ports:
+#      - "9001:9000"
+#    environment:
+#      ZK_HOSTS: zookeeper1:2181
+#      APPLICATION_SECRET: letmein
+#      KM_ARGS: -Djava.net.preferIPv4Stack=true
+#    depends_on:
+#      - zookeeper1
+#    networks:
+#      kafka-network:
+#        ipv4_address: 10.5.0.10
+
+  spring-cloud-stream-kafka-source:
+    image: jinternals/spring-cloud-stream-kafka-source
+    container_name: spring-cloud-stream-kafka-source
+    ports:
+        - 8012:8012
+    depends_on:
+      - zookeeper1
+      - kafka1
+    networks:
+      kafka-network:
+        ipv4_address: 10.5.0.11
+
+  spring-cloud-stream-kafka-sink1:
+    image: jinternals/spring-cloud-stream-kafka-sink
+    container_name: spring-cloud-stream-kafka-sink1
+    ports:
+        - 8013:8013
+    depends_on:
+      - zookeeper1
+      - kafka1
+    networks:
+      kafka-network:
+        ipv4_address: 10.5.0.12
+
+  spring-cloud-stream-kafka-sink2:
+    image: jinternals/spring-cloud-stream-kafka-sink
+    container_name: spring-cloud-stream-kafka-sink2
+    ports:
+        - 8014:8013
+    depends_on:
+      - zookeeper1
+      - kafka1
+    networks:
+      kafka-network:
+        ipv4_address: 10.5.0.13
+
+networks:
+   kafka-network:
+     driver: bridge
+     ipam:
+      config:
+        - subnet: 10.5.0.0/16
