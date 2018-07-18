@@ -1,12 +1,18 @@
 # spring-cloud-stream
 
-#### How to setup kafka cluster:
+#### How to run :
 
 ```
-    mvn clean install docker:build 
+   mvn clean install docker:build 
 
    docker-compose up -d
+  
    docker-compose stop && docker-compose rm -f
                   
 ```
-# spring-cloud-stream
+
+#### View kafka topics :
+
+```
+    http://localhost:8000
+```
