@@ -10,7 +10,6 @@
     <modules>
         <module>spring-cloud-stream-kafka-source</module>
         <module>spring-cloud-stream-kafka-sink</module>
-        <module>spring-cloud-event-mapping</module>
     </modules>
 
     <packaging>pom</packaging>

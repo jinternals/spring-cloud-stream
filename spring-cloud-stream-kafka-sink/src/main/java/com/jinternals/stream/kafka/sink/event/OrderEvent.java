@@ -5,6 +5,9 @@ public class OrderEvent {
     private String id;
     private String name;
 
+    public OrderEvent() {
+    }
+
     public OrderEvent(String id, String name) {
         this.id = id;
         this.name = name;
