@@ -1,6 +1,6 @@
 package com.jinternals.stream.kafka.source.event;
 
-public class OrderEvent {
+public class OrderEvent implements BaseEvent<String> {
 
     private String id;
     private String name;

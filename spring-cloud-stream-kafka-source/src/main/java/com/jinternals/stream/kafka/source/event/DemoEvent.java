@@ -1,6 +1,6 @@
 package com.jinternals.stream.kafka.source.event;
 
-public class DemoEvent{
+public class DemoEvent implements BaseEvent<String> {
 
     private String id;
     private String message;

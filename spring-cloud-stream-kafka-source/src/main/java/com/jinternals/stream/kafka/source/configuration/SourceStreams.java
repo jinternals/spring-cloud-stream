@@ -6,13 +6,12 @@ import org.springframework.context.annotation.Primary;
 import org.springframework.messaging.MessageChannel;
 
 @Primary
-public interface DemoStreams {
+public interface SourceStreams {
 
-    @Output("demo")
-    public MessageChannel output();
+    public static String OUTPUT_CHANNEL = "demo";
 
-
-
+    @Output(OUTPUT_CHANNEL)
+    public MessageChannel outputMessageChannel();
 
 }
 

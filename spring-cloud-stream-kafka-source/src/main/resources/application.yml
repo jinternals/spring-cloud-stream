@@ -2,6 +2,9 @@ server:
   port: 8012
 
 spring:
+  devtools:
+     remote:
+       secret: machine
   cloud:
     stream:
       kafka:

@@ -9,12 +9,12 @@ import org.springframework.stereotype.Component;
 @Component
 public class DemoEventListener {
 
-    @StreamListener(DemoStreams.INPUT)
+    @StreamListener(value = DemoStreams.INPUT, condition="headers['type']=='com.jinternals.stream.kafka.source.event.DemoEvent'")
     public void handle(DemoEvent demoEvent) {
         System.out.println("Message Received: " + demoEvent);
     }
 
-    @StreamListener(DemoStreams.INPUT)
+    @StreamListener(value = DemoStreams.INPUT, condition="headers['type']=='com.jinternals.stream.kafka.source.event.OrderEvent'")
     public void handle(OrderEvent demoEvent) {
         System.out.println("Order Received: " + demoEvent);
     }
