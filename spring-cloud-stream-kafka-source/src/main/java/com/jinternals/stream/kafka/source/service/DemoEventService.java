@@ -10,12 +10,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class DemoSourceService{
+public class DemoEventService {
 
     private EventPublisher eventPublisher;
 
     @Autowired
-    public DemoSourceService(EventPublisher eventPublisher){
+    public DemoEventService(EventPublisher eventPublisher){
         this.eventPublisher = eventPublisher;
     }
 

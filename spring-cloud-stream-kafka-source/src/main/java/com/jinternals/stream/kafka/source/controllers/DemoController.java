@@ -2,14 +2,9 @@ package com.jinternals.stream.kafka.source.controllers;
 
 import com.jinternals.stream.kafka.source.event.DemoEvent;
 import com.jinternals.stream.kafka.source.event.OrderEvent;
-import com.jinternals.stream.kafka.source.service.DemoSourceService;
+import com.jinternals.stream.kafka.source.service.DemoEventService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
-
-import java.util.UUID;
+import org.springframework.web.bind.annotation.*;
 
 import static org.springframework.http.HttpStatus.ACCEPTED;
 
@@ -17,24 +12,24 @@ import static org.springframework.http.HttpStatus.ACCEPTED;
 @RestController
 public class DemoController{
 
-   private DemoSourceService demoSourceService;
+   private DemoEventService demoEventService;
 
    @Autowired
-   public DemoController(DemoSourceService demoSourceService){
-       this.demoSourceService = demoSourceService;
+   public DemoController(DemoEventService demoEventService){
+       this.demoEventService = demoEventService;
    }
 
-    @GetMapping("/message")
+    @PostMapping("/demo")
     @ResponseStatus(ACCEPTED)
-    public void demo(@RequestParam("message")String message) {
-        this.demoSourceService.send(new DemoEvent(UUID.randomUUID().toString(), message));
+    public void demo(@RequestBody DemoEvent event) {
+        this.demoEventService.send(event);
     }
 
 
-    @GetMapping("/order")
+    @PostMapping("/order")
     @ResponseStatus(ACCEPTED)
-    public void ordrer(@RequestParam("name")String name) {
-        this.demoSourceService.send(new OrderEvent(UUID.randomUUID().toString(), name));
+    public void ordrer(@RequestBody OrderEvent orderEvent) {
+        this.demoEventService.send(orderEvent);
     }
 
 

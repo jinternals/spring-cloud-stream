@@ -6,7 +6,7 @@ spring:
     stream:
       kafka:
         binder:
-          brokers: kafka1:9092,kafka2:9093
+          brokers: kafka1:9092,kafka2:9093,kafka2:9094
           autoAddPartitions: true
           minPartitionCount: 4
       bindings:

@@ -9,7 +9,7 @@ spring:
     stream:
       kafka:
         binder:
-          brokers: kafka1:9092,kafka2:9093
+          brokers: kafka1:9092,kafka2:9093,kafka2:9094
           auto-create-topics: true
           auto-add-partitions: true
           replication-factor: 2
