@@ -8,8 +8,8 @@
     <version>0.0.1-SNAPSHOT</version>
 
     <modules>
-        <module>spring-cloud-stream-kafka-source</module>
-        <module>spring-cloud-stream-kafka-sink</module>
+        <module>kafka/spring-cloud-stream-kafka-source</module>
+        <module>kafka/spring-cloud-stream-kafka-sink</module>
     </modules>
 
     <packaging>pom</packaging>
