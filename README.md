@@ -3,13 +3,15 @@ Spring cloud stream provide abstraction over messaging broker and its features, 
 It works like polyfill for messaging if some feature is missing from binder, like native partition support is missing in rabbitmq spring cloud spring provides this out of box.  
 
 
-#### How to run :
 
 
 ##### build code and docker images :
 ```
     mvn clean install docker:build 
 ```
+
+#### how to run kafka example:
+
 
 ##### start containers :
 
@@ -21,7 +23,6 @@ It works like polyfill for messaging if some feature is missing from binder, lik
 
  ```
     docker-compose -f kafka-docker-compose.yml stop
-  
 ```
 
  ##### remove containers :
@@ -36,5 +37,31 @@ It works like polyfill for messaging if some feature is missing from binder, lik
     http://localhost:8000
 ```
 
+#### how to run rabbitmq example:
 
-chmod +x .
+
+##### start containers :
+
+```
+    docker-compose -f rabbitmq-docker-compose.yml up -d
+```
+
+ ##### stop containers :
+
+ ```
+    docker-compose -f rabbitmq-docker-compose.yml stop
+```
+
+ ##### remove containers :
+  
+```
+    docker-compose -f rabbitmq-docker-compose.yml rm -f   
+```
+
+
+###Known Issues and Fix:
+
+#### Permission issue with  cluster-entrypoint.sh
+```
+    chmod +x ./config/rabbitmq/cluster-entrypoint.sh
+```
