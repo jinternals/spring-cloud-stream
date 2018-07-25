@@ -26,9 +26,8 @@ It works like polyfill for messaging if some feature is missing from binder, lik
 
  ##### remove containers :
   
-```  
-    docker-compose -f kafka-docker-compose.yml rm -f
-                  
+```
+    docker-compose -f kafka-docker-compose.yml rm -f   
 ```
 
 #### view kafka topics :
@@ -36,3 +35,6 @@ It works like polyfill for messaging if some feature is missing from binder, lik
 ```
     http://localhost:8000
 ```
+
+
+chmod +x .
