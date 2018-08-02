@@ -1,4 +1,7 @@
 # spring-cloud-stream
+
+[![Build Status](https://travis-ci.org/jinternals/spring-cloud-stream.svg?branch=master)](https://travis-ci.org/jinternals/spring-cloud-stream)
+
 Spring cloud stream provide abstraction over messaging broker and its features, and provides consistent feature across the binders like kafka and rabbitmq. 
 It works like polyfill for messaging if some feature is missing from binder, like native partition support is missing in rabbitmq spring cloud spring provides this out of box.  
 
