@@ -1,6 +1,6 @@
 package com.jinternals.stream.source.event.publisher;
 
-import com.jinternals.stream.source.configuration.SourceStreams;
+import com.jinternals.stream.source.configuration.Source;
 import com.jinternals.stream.source.event.BaseEvent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.Message;
@@ -11,11 +11,11 @@ import static org.springframework.messaging.support.MessageBuilder.withPayload;
 @Component
 public class EventPublisher {
 
-    private SourceStreams sourceStreams;
+    private Source source;
 
     @Autowired
-    public EventPublisher(SourceStreams sourceStreams) {
-        this.sourceStreams = sourceStreams;
+    public EventPublisher(Source source) {
+        this.source = source;
     }
 
     public void publishEvent(BaseEvent<?> event) {
@@ -25,8 +25,8 @@ public class EventPublisher {
                 .setHeader("type", event.getClass().getName())
                 .build();
 
-        this.sourceStreams
-                .outputMessageChannel()
+        this.source
+                .outputChannel()
                 .send(eventMessage);
     }
 

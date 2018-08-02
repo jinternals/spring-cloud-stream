@@ -1,0 +1,25 @@
+server:
+  port: 8012
+
+spring:
+  cloud:
+    stream:
+      bindings:
+        demo:
+          destination: demo
+          group: demo
+          binder: rabbitmq
+          producer:
+            partition-key-expression: headers.routing_id
+            partition-count: 4
+            required-groups: demo # The required-groups property is required only if you need the consumer queues to be provisioned when the producer is deployed. Otherwise, any messages sent to a partition are lost until the corresponding consumer is deployed.
+      binders:
+        rabbitmq:
+          type: rabbit
+          environment:
+            spring:
+              rabbitmq:
+                host: rabbitmq-node-1
+                port: 5672
+                username: admin
+                password: Admin@123

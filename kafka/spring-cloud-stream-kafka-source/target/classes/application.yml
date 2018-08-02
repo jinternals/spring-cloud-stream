@@ -1,0 +1,21 @@
+server:
+  port: 8012
+
+spring:
+  devtools:
+     remote:
+       secret: machine
+  cloud:
+    stream:
+      kafka:
+        binder:
+          brokers: kafka1:9092,kafka2:9093,kafka2:9094
+          auto-create-topics: true
+          auto-add-partitions: true
+          replication-factor: 2
+      bindings:
+        demo:
+          producer:
+            partition-key-expression: headers.routing_id
+            partition-count: 4
+            required-groups: demo #only applicable for rabbit
