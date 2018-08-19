@@ -1,7 +1,10 @@
 server:
   port: 8013
 
+
 spring:
+  application:
+    name: spring-cloud-stream-rabbitmq-sink
   cloud:
     stream:
       bindings:
