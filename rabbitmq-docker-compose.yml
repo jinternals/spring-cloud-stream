@@ -29,6 +29,9 @@ services:
     environment:
        - RABBITMQ_ERLANG_COOKIE=cluster
     entrypoint: /usr/local/bin/cluster-entrypoint.sh
+    restart: on-failure
+    depends_on:
+       - rabbitmq-node-1
     networks:
       kafka-network:
         ipv4_address: 10.5.0.8
@@ -45,6 +48,9 @@ services:
     environment:
        - RABBITMQ_ERLANG_COOKIE=cluster
     entrypoint: /usr/local/bin/cluster-entrypoint.sh
+    restart: on-failure
+    depends_on:
+       - rabbitmq-node-1
     networks:
       kafka-network:
         ipv4_address: 10.5.0.9
@@ -67,6 +73,7 @@ services:
         - 8013:8013
     environment:
         - INSTANCE-INDEX=0
+    restart: on-failure
     depends_on:
         - rabbitmq-node-1
     networks:
@@ -80,6 +87,7 @@ services:
         - 8014:8013
     environment:
         - INSTANCE-INDEX=1
+    restart: on-failure
     depends_on:
        - rabbitmq-node-2
     networks:
@@ -94,6 +102,7 @@ services:
         - 8015:8013
     environment:
         - INSTANCE-INDEX=2
+    restart: on-failure
     depends_on:
        - rabbitmq-node-3
     networks:
@@ -107,11 +116,21 @@ services:
         - 8016:8013
     depends_on:
        - rabbitmq-node-3
+    restart: on-failure
     environment:
         - INSTANCE-INDEX=3
     networks:
       kafka-network:
         ipv4_address: 10.5.0.14
+
+  admin-server:
+    image: jinternals/admin-server
+    container_name: admin-server
+    ports:
+    - 8585:8585
+    networks:
+      kafka-network:
+        ipv4_address: 10.5.0.15
 
 networks:
    kafka-network:

@@ -22,3 +22,19 @@ spring:
                 port: 5672
                 username: admin
                 password: Admin@123
+  boot:
+    admin:
+      client:
+        url: "http://admin-server:8585"
+
+  rabbitmq:
+    host: rabbitmq-node-2
+    port: 5672
+    username: admin
+    password: Admin@123
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"

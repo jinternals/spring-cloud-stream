@@ -25,6 +25,6 @@
 /.nb-gradle
 
 /data/
-/target/
-
+/target/**
+*/**/target/
 .DS_Store

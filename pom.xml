@@ -12,6 +12,7 @@
         <module>kafka/spring-cloud-stream-kafka-sink</module>
         <module>rabbitmq/spring-cloud-stream-rabbitmq-source</module>
         <module>rabbitmq/spring-cloud-stream-rabbitmq-sink</module>
+        <module>admin-server</module>
     </modules>
 
     <packaging>pom</packaging>
@@ -27,8 +28,8 @@
 
         <kotlin.version>1.2.41</kotlin.version>
 
-        <spring.boot.version>2.0.3.RELEASE</spring.boot.version>
-        <spring.cloud.version>Finchley.RELEASE</spring.cloud.version>
+        <spring.boot.version>2.0.4.RELEASE</spring.boot.version>
+        <spring.cloud.version>Finchley.SR1</spring.cloud.version>
 
         <docker.image.prefix>jinternals</docker.image.prefix>
         <plugin.docker.version>0.4.13</plugin.docker.version>
