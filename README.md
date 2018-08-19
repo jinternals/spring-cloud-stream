@@ -61,6 +61,10 @@ It works like polyfill for messaging if some feature is missing from binder, lik
     docker-compose -f rabbitmq-docker-compose.yml rm -f   
 ```
 
+##### dashboard urls:
+Admin dashboard:  http://localhost:8585<br>
+Rabbit dashboard: http://localhost:15672<br>
+
 
 ### Known Issues and Fix:
 
