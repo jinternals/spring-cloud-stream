@@ -1,9 +1,0 @@
-com\jinternals\stream\source\configuration\Source.class
-com\jinternals\stream\source\event\DemoEvent.class
-com\jinternals\stream\source\event\publisher\EventPublisher.class
-com\jinternals\stream\source\Application.class
-com\jinternals\stream\source\configuration\SourceConfiguration.class
-com\jinternals\stream\source\event\OrderEvent.class
-com\jinternals\stream\source\event\BaseEvent.class
-com\jinternals\stream\source\service\DemoEventService.class
-com\jinternals\stream\source\controllers\DemoController.class

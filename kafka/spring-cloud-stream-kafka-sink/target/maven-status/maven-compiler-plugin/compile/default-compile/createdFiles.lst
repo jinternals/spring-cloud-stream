@@ -1,7 +1,0 @@
-com\jinternals\stream\sink\event\DemoEvent.class
-com\jinternals\stream\sink\configuration\DemoStreams.class
-com\jinternals\stream\sink\event\OrderEvent.class
-com\jinternals\stream\sink\Application.class
-com\jinternals\stream\sink\listener\LoggerComponent.class
-com\jinternals\stream\sink\listener\DemoEventListener.class
-com\jinternals\stream\sink\configuration\StreamsConfiguration.class
