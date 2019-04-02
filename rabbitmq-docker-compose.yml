@@ -14,7 +14,7 @@ services:
        - RABBITMQ_DEFAULT_USER=admin
        - RABBITMQ_DEFAULT_PASS=Admin@123
     networks:
-      kafka-network:
+      rabbit-network:
         ipv4_address: 10.5.0.7
 
   rabbitmq-node-2:
@@ -33,7 +33,7 @@ services:
     depends_on:
        - rabbitmq-node-1
     networks:
-      kafka-network:
+      rabbit-network:
         ipv4_address: 10.5.0.8
 
   rabbitmq-node-3:
@@ -52,7 +52,7 @@ services:
     depends_on:
        - rabbitmq-node-1
     networks:
-      kafka-network:
+      rabbit-network:
         ipv4_address: 10.5.0.9
 
   spring-cloud-stream-rabbitmq-source:
@@ -63,7 +63,7 @@ services:
     depends_on:
       - rabbitmq-node-1
     networks:
-      kafka-network:
+      rabbit-network:
         ipv4_address: 10.5.0.10
 
   spring-cloud-stream-rabbitmq-sink-0:
@@ -77,7 +77,7 @@ services:
     depends_on:
         - rabbitmq-node-1
     networks:
-      kafka-network:
+      rabbit-network:
         ipv4_address: 10.5.0.11
 
   spring-cloud-stream-rabbitmq-sink-1:
@@ -91,7 +91,7 @@ services:
     depends_on:
        - rabbitmq-node-2
     networks:
-      kafka-network:
+      rabbit-network:
         ipv4_address: 10.5.0.12
 
 
@@ -106,7 +106,7 @@ services:
     depends_on:
        - rabbitmq-node-3
     networks:
-      kafka-network:
+      rabbit-network:
         ipv4_address: 10.5.0.13
 
   spring-cloud-stream-rabbitmq-sink-3:
@@ -120,7 +120,7 @@ services:
     environment:
         - INSTANCE-INDEX=3
     networks:
-      kafka-network:
+      rabbit-network:
         ipv4_address: 10.5.0.14
 
   admin-server:
@@ -129,11 +129,11 @@ services:
     ports:
     - 8585:8585
     networks:
-      kafka-network:
+      rabbit-network:
         ipv4_address: 10.5.0.15
 
 networks:
-   kafka-network:
+   rabbit-network:
      driver: bridge
      ipam:
       config:

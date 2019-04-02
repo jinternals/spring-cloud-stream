@@ -10,7 +10,7 @@ It works like polyfill for messaging if some feature is missing from binder, lik
 
 ##### build code and docker images :
 ```
-    mvn clean install docker:build 
+mvn clean install docker:build 
 ```
 
 #### how to run kafka example:
@@ -19,25 +19,25 @@ It works like polyfill for messaging if some feature is missing from binder, lik
 ##### start containers :
 
 ```
-    docker-compose -f kafka-docker-compose.yml up -d
+docker-compose -f kafka-docker-compose.yml up -d
 ```
 
  ##### stop containers :
 
  ```
-    docker-compose -f kafka-docker-compose.yml stop
+docker-compose -f kafka-docker-compose.yml stop
 ```
 
  ##### remove containers :
   
 ```
-    docker-compose -f kafka-docker-compose.yml rm -f   
+docker-compose -f kafka-docker-compose.yml rm -f   
 ```
 
 #### view kafka topics :
 
 ```
-    http://localhost:8000
+http://localhost:8000
 ```
 
 #### how to run rabbitmq example:
@@ -46,19 +46,19 @@ It works like polyfill for messaging if some feature is missing from binder, lik
 ##### start containers :
 
 ```
-    docker-compose -f rabbitmq-docker-compose.yml up -d
+docker-compose -f rabbitmq-docker-compose.yml up -d
 ```
 
  ##### stop containers :
 
  ```
-    docker-compose -f rabbitmq-docker-compose.yml stop
+docker-compose -f rabbitmq-docker-compose.yml stop
 ```
 
  ##### remove containers :
   
 ```
-    docker-compose -f rabbitmq-docker-compose.yml rm -f   
+docker-compose -f rabbitmq-docker-compose.yml rm -f   
 ```
 
 ##### dashboard urls:
@@ -70,5 +70,5 @@ Rabbit dashboard: http://localhost:15672<br>
 
 #### Permission issue with  cluster-entrypoint.sh
 ```
-    chmod +x ./config/rabbitmq/cluster-entrypoint.sh
+chmod +x ./config/rabbitmq/cluster-entrypoint.sh
 ```
